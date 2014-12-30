@@ -6,4 +6,9 @@
     <item android:id="@+id/action_logout"
         android:title="@string/action_logout"
         app:showAsAction="never" />
+
+    <item android:id="@+id/action_edit_friends"
+        android:title="@string/action_friends_label"
+        app:showAsAction="never" />
+
 </menu>

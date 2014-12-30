@@ -13,5 +13,8 @@
     <string name="login_button_label">Login</string>
     <string name="signup_text">Sign Up!</string>
     <string name="login_text">Log In</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="email_hint">Email</string>
+    <string name="signup_button_label">Sign Up</string>
 
 </resources>

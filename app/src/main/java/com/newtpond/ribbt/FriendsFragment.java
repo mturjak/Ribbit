@@ -41,7 +41,7 @@ public class FriendsFragment extends ListFragment {
         mCurrentUser = ParseUser.getCurrentUser();
         mFriendsRelation = mCurrentUser.getRelation(ParseConstants.KEY_FRIENDS_RELATION);
 
-        ((ActionBarActivity)getActivity()).setProgressBarIndeterminateVisibility(true);
+        ((ActionBarActivity)getActivity()).setSupportProgressBarIndeterminateVisibility(true);
 
         ParseQuery<ParseUser> query = mFriendsRelation.getQuery();
         query.addAscendingOrder(ParseConstants.KEY_USERNAME);

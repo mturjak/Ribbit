@@ -24,6 +24,7 @@ import java.util.List;
 public class EditFriendsActivity extends ListActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
+
     protected List<ParseUser> mUsers;
     protected ParseRelation<ParseUser> mFriendsRelation;
     protected ParseUser mCurrentUser;

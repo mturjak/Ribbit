@@ -44,6 +44,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.newtpond.ribbt.MainActivity" />
         </activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:label="@string/title_activity_profile"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.newtpond.ribbt.MainActivity" />
+        </activity>
+        <activity
+            android:name=".EditProfileActivity"
+            android:label="@string/title_activity_edit_profile"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.newtpond.ribbt.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

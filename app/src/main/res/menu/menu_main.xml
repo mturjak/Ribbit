@@ -11,4 +11,8 @@
         android:title="@string/action_friends_label"
         app:showAsAction="never" />
 
+    <item android:id="@+id/action_edit_profile"
+        android:title="@string/title_activity_edit_profile"
+        app:showAsAction="never" />
+
 </menu>

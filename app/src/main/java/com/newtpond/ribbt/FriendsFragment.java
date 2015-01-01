@@ -1,6 +1,8 @@
 package com.newtpond.ribbt;
 
 import android.app.AlertDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.ActionBarActivity;
@@ -9,12 +11,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -65,6 +72,8 @@ public class FriendsFragment extends ListFragment {
                             usernames);
 
                     setListAdapter(adapter);
+
+
                 } else {
                     Log.e(TAG, e.getMessage());
                     AlertDialog.Builder builder = new AlertDialog.Builder(getListView().getContext());
@@ -76,5 +85,14 @@ public class FriendsFragment extends ListFragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+
+        Intent intent = new Intent(getListView().getContext(), ProfileActivity.class);
+        intent.putExtra(ParseConstants.KEY_USERNAME, mFriends.get(position).getUsername());
+        startActivity(intent);
     }
 }

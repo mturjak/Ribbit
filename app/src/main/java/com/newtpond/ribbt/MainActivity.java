@@ -72,7 +72,17 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                         startActivityForResult(takePhotoIntent, TAKE_PHOTO_REQUEST);
                     }
                     break;
-                case 1: // take video
+                case TAKE_VIDEO_REQUEST:
+                    Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                    mMediaUri = getOutputMediaFileUri(MEDIA_TYPE_VIDEO);
+                    if(mMediaUri == null) {
+                        Toast.makeText(MainActivity.this, R.string.error_external_storage, Toast.LENGTH_LONG).show();
+                    } else {
+                        takeVideoIntent.putExtra(MediaStore.EXTRA_OUTPUT, mMediaUri);
+                        takeVideoIntent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 10);
+                        takeVideoIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
+                        startActivityForResult(takeVideoIntent, TAKE_VIDEO_REQUEST);
+                    }
                     break;
                 case 2: // choose picture
                     break;

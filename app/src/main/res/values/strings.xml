@@ -35,5 +35,11 @@
     <string name="website_hint">Website</string>
     <string name="edit_profile_error_message">Email field can not be empty!</string>
     <string name="action_camera">Camera</string>
-
+    <string-array name="camera_choices">
+        <item>Take Picture</item>
+        <item>Take Video</item>
+        <item>Choose Picture</item>
+        <item>Choose Video</item>
+    </string-array>
+    
 </resources>

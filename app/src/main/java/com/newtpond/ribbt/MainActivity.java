@@ -1,5 +1,6 @@
 package com.newtpond.ribbt;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -45,7 +46,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             // do stuff with the user
             Log.i(TAG, currentUser.getUsername());
         } else {
-            navigateToLogin();
+            navigateTo(LoginActivity.class, true);
         }
 
         // Set up the action bar.
@@ -83,10 +84,12 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         }
     }
 
-    private void navigateToLogin() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-              .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+    private void navigateTo(final Class<? extends Activity> activityClass, boolean clearTask) {
+        Intent intent = new Intent(this, activityClass);
+        if(clearTask) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        }
         startActivity(intent);
     }
 
@@ -99,15 +102,17 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_logout) {
-            ParseUser.logOut();
-            navigateToLogin();
-        } else if (id == R.id.action_edit_friends) {
-            Intent intent = new Intent(this, EditFriendsActivity.class);
-            startActivity(intent);
+        switch (item.getItemId()) {
+            case R.id.action_logout:
+                ParseUser.logOut();
+                navigateTo(LoginActivity.class, true);
+                break;
+            case R.id.action_edit_friends:
+                navigateTo(EditFriendsActivity.class, false);
+                break;
+            case R.id.action_edit_profile:
+                navigateTo(EditProfileActivity.class, false);
+                break;
         }
 
         return super.onOptionsItemSelected(item);

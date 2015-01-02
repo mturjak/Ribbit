@@ -84,7 +84,10 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                         startActivityForResult(takeVideoIntent, TAKE_VIDEO_REQUEST);
                     }
                     break;
-                case 2: // choose picture
+                case PICK_PHOTO_REQUEST:
+                    Intent choosePhotoIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                    choosePhotoIntent.setType("image/*");
+                    startActivityForResult(choosePhotoIntent, PICK_PHOTO_REQUEST);
                     break;
                 case 3: // choose video
                     break;
@@ -196,9 +199,17 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
         if(resultCode == RESULT_OK) {
             // add to the Gallery
-            Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-            mediaScanIntent.setData(mMediaUri);
-            sendBroadcast(mediaScanIntent);
+            if(requestCode == PICK_PHOTO_REQUEST || requestCode == PICK_VIDEO_REQUEST) {
+                if(data == null) {
+                    Toast.makeText(this, R.string.general_error, Toast.LENGTH_LONG).show();
+                } else {
+                    mMediaUri = data.getData();
+                }
+            } else {
+                Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                mediaScanIntent.setData(mMediaUri);
+                sendBroadcast(mediaScanIntent);
+            }
         } else if (resultCode != RESULT_CANCELED) {
             Toast.makeText(this, R.string.general_error, Toast.LENGTH_LONG).show();
         }

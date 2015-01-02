@@ -34,5 +34,6 @@
     <string name="hometown_hint">Hometown</string>
     <string name="website_hint">Website</string>
     <string name="edit_profile_error_message">Email field can not be empty!</string>
+    <string name="action_camera">Camera</string>
 
 </resources>

@@ -8,6 +8,9 @@
 
     <uses-feature android:name="android.hardware.camera" android:required="true" />
 
+    <!-- debugging & logging -->
+    <uses-permission android:name="android.permission.READ_LOGS" />
+
     <application
         android:name=".RibbitApplication"
         android:allowBackup="true"

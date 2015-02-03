@@ -49,5 +49,7 @@
     </string-array>
 
     <string name="title_activity_recipients">Choose Recipients</string>
+    <string name="title_activity_searchable">SearchableActivity</string>
+    <string name="search_hint">Search users</string>
 
 </resources>

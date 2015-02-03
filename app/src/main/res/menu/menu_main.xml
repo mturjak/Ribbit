@@ -20,4 +20,8 @@
         android:title="@string/title_activity_edit_profile"
         app:showAsAction="never" />
 
+    <item android:id="@+id/action_search"
+        android:title="@string/search_hint"
+        app:showAsAction="ifRoom"  />
+
 </menu>

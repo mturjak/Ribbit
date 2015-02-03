@@ -23,6 +23,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FriendsFragment extends ListFragment {
@@ -60,16 +61,8 @@ public class FriendsFragment extends ListFragment {
                 if (e == null) {
                     mFriends = friends;
 
-                    String[] usernames = new String[mFriends.size()];
-                    int i = 0;
-                    for (ParseUser user : mFriends) {
-                        usernames[i] = user.getUsername();
-                        i++;
-                    }
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                            getListView().getContext(),
-                            android.R.layout.simple_list_item_1,
-                            usernames);
+                    GravatarAdapter adapter = new GravatarAdapter(getListView().getContext());
+                    adapter.updateUsers(mFriends);
 
                     setListAdapter(adapter);
 

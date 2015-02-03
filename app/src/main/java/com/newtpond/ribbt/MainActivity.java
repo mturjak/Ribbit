@@ -2,6 +2,7 @@ package com.newtpond.ribbt;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.SearchManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -27,7 +28,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.Locale;
 
 
@@ -155,8 +155,9 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
+
+        supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.activity_main);
 
         ParseUser currentUser = ParseUser.getCurrentUser();
@@ -278,6 +279,9 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                 break;
             case R.id.action_edit_friends:
                 navigateTo(EditFriendsActivity.class, false);
+                break;
+            case R.id.action_search:
+                onSearchRequested();
                 break;
             case R.id.action_edit_profile:
                 navigateTo(EditProfileActivity.class, false);

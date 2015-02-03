@@ -10,20 +10,21 @@ import android.widget.TextView;
 
 import com.parse.ParseUser;
 import com.squareup.picasso.Picasso;
+import fr.tkeunebr.gravatar.Gravatar;
 
 import java.util.Collections;
 import java.util.List;
 
-import fr.tkeunebr.gravatar.Gravatar;
-
 final class GravatarAdapter extends BaseAdapter {
+  private final String mStyle;
   private final Context mContext;
   private final LayoutInflater mLayoutInflater;
   private final int mAvatarImageViewPixelSize;
   private List<ParseUser> mUsers = Collections.emptyList();
 
-  public GravatarAdapter(Context context) {
+  public GravatarAdapter(Context context, String style) {
     mContext = context;
+    mStyle = style;
     mLayoutInflater = LayoutInflater.from(context);
     mAvatarImageViewPixelSize = context.getResources().getDimensionPixelSize(R.dimen.avatar_image_view_size);
   }
@@ -51,7 +52,11 @@ final class GravatarAdapter extends BaseAdapter {
   @Override
   public View getView(int position, View convertView, ViewGroup parent) {
     if (convertView == null) {
-      convertView = mLayoutInflater.inflate(R.layout.user_list_item, null);
+        if(mStyle == "item") {
+            convertView = mLayoutInflater.inflate(R.layout.user_list_item, null);
+        } else if(mStyle == "item_checkbox") {
+            convertView = mLayoutInflater.inflate(R.layout.user_list_item_checkbox, null);
+        }
     }
 
     ParseUser user = getItem(position);

@@ -58,16 +58,8 @@ public class EditFriendsActivity extends ListActivity {
                 if(e == null) {
                     // Success
                     mUsers = users;
-                    String[] usernames = new String[mUsers.size()];
-                    int i = 0;
-                    for(ParseUser user : mUsers) {
-                        usernames[i] = user.getUsername();
-                        i++;
-                    }
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                            EditFriendsActivity.this,
-                            android.R.layout.simple_list_item_checked,
-                            usernames);
+                    GravatarAdapter adapter = new GravatarAdapter(getListView().getContext(), "item_checkbox");
+                    adapter.updateUsers(mUsers);
 
                     setListAdapter(adapter);
 

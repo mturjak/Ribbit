@@ -7,6 +7,14 @@
     android:padding="16dp"
     android:weightSum="1">
 
+    <CheckBox
+        android:id="@+id/check"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:focusable="false"
+        android:text="">
+    </CheckBox>
+
     <ImageView
         android:id="@+id/user_avatar"
         android:layout_width="@dimen/avatar_image_view_size"

@@ -61,7 +61,7 @@ public class FriendsFragment extends ListFragment {
                 if (e == null) {
                     mFriends = friends;
 
-                    GravatarAdapter adapter = new GravatarAdapter(getListView().getContext());
+                    GravatarAdapter adapter = new GravatarAdapter(getListView().getContext(), "item");
                     adapter.updateUsers(mFriends);
 
                     setListAdapter(adapter);

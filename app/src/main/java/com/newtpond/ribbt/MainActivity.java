@@ -277,6 +277,9 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                 ParseUser.logOut();
                 navigateTo(LoginActivity.class, true);
                 break;
+            case R.id.action_main2:
+                navigateTo(Main2Activity.class, true);
+                break;
             case R.id.action_edit_friends:
                 navigateTo(EditFriendsActivity.class, false);
                 break;

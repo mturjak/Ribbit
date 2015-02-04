@@ -24,4 +24,8 @@
         android:title="@string/search_hint"
         app:showAsAction="ifRoom"  />
 
+    <item android:id="@+id/action_main2"
+        android:title="Main2 Test"
+        app:showAsAction="ifRoom"  />
+
 </menu>

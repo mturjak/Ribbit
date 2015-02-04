@@ -1,7 +1,6 @@
 package com.newtpond.ribbt;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,20 +12,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 
 public class Main2Activity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, BlogPostListFragment.Callbacks {
 
-    private boolean mIsDrawerLocked = false;
 
+
+    private boolean mIsDrawer = false;
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
-
-    private DrawerLayout mDrawerLayout;
+    private BlogPostListFragment mBlogPostListFragment;
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -38,24 +36,33 @@ public class Main2Activity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        mNavigationDrawerFragment = (NavigationDrawerFragment)
-                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if(getResources().getDimensionPixelSize(R.dimen.drawer_content_padding) == 0 ) {
+            mIsDrawer = true;
 
-        // Set up the drawer.
-        mNavigationDrawerFragment.setUp(
-                R.id.navigation_drawer,
-                mDrawerLayout);
+            mNavigationDrawerFragment = (NavigationDrawerFragment)
+                    getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 
-        FrameLayout frameLayout = (FrameLayout)findViewById(R.id.container);
-
-        if(((ViewGroup.MarginLayoutParams)frameLayout.getLayoutParams()).leftMargin == (int)getResources().getDimension(R.dimen.navigation_drawer_width)) {
-            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN, mNavigationDrawerFragment.getView());
-            mDrawerLayout.setScrimColor(Color.TRANSPARENT);
-            mIsDrawerLocked = true;
+            // Set up the drawer.
+            mNavigationDrawerFragment.setUp(
+                    R.id.navigation_drawer,
+                    (DrawerLayout) findViewById(R.id.drawer_layout));
+        } else {
+            ((BlogPostListFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.navigation_list))
+                    .setActivateOnItemClick(true);
         }
+
+    }
+
+    @Override
+    public void onItemSelected(int position) {
+        // update the main content by replacing fragments
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+                .commit();
     }
 
     @Override
@@ -65,10 +72,6 @@ public class Main2Activity extends ActionBarActivity
         fragmentManager.beginTransaction()
                 .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
                 .commit();
-
-        /*if(!mIsDrawerLocked) {
-            
-        }*/
     }
 
     public void onSectionAttached(int number) {
@@ -95,7 +98,7 @@ public class Main2Activity extends ActionBarActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mNavigationDrawerFragment.isDrawerOpen()) {
+        if (mIsDrawer && !mNavigationDrawerFragment.isDrawerOpen()) {
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.

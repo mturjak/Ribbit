@@ -1,5 +1,6 @@
 package com.newtpond.ribbt;
 
+import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -49,6 +50,8 @@ public class NavigationDrawerFragment extends Fragment {
      * Helper component that ties the action bar to the navigation drawer.
      */
     private ActionBarDrawerToggle mDrawerToggle;
+
+    private boolean mIsDrawerLocked = false;
 
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerListView;
@@ -124,13 +127,19 @@ public class NavigationDrawerFragment extends Fragment {
         mFragmentContainerView = getActivity().findViewById(fragmentId);
         mDrawerLayout = drawerLayout;
 
-        // set a custom shadow that overlays the main content when the drawer opens
-        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        // set up the drawer's list view with items and click listener
+        if(getResources().getDimensionPixelSize(R.dimen.drawer_content_padding) > 0 ) {
+            mIsDrawerLocked = true;
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN, mFragmentContainerView);
+            drawerLayout.setScrimColor(Color.TRANSPARENT);
+        } else {
+            // set a custom shadow that overlays the main content when the drawer opens
+            mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+            // set up the drawer's list view with items and click listener
 
-        ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeButtonEnabled(true);
+            ActionBar actionBar = getActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
+        }
 
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the navigation drawer and the action bar app icon.
@@ -173,21 +182,25 @@ public class NavigationDrawerFragment extends Fragment {
             }
         };
 
-        // If the user hasn't 'learned' about the drawer, open it to introduce them to the drawer,
-        // per the navigation drawer design guidelines.
-        if (!mUserLearnedDrawer && !mFromSavedInstanceState) {
-            mDrawerLayout.openDrawer(mFragmentContainerView);
-        }
+        if(!mIsDrawerLocked) {
 
-        // Defer code dependent on restoration of previous instance state.
-        mDrawerLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                mDrawerToggle.syncState();
+            // If the user hasn't 'learned' about the drawer, open it to introduce them to the drawer,
+            // per the navigation drawer design guidelines.
+            if (!mUserLearnedDrawer && !mFromSavedInstanceState) {
+                mDrawerLayout.openDrawer(mFragmentContainerView);
             }
-        });
 
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+            // Defer code dependent on restoration of previous instance state.
+            mDrawerLayout.post(new Runnable() {
+                @Override
+                public void run() {
+                    mDrawerToggle.syncState();
+                }
+            });
+
+
+            mDrawerLayout.setDrawerListener(mDrawerToggle);
+        }
     }
 
     private void selectItem(int position) {
@@ -195,7 +208,7 @@ public class NavigationDrawerFragment extends Fragment {
         if (mDrawerListView != null) {
             mDrawerListView.setItemChecked(position, true);
         }
-        if (mDrawerLayout != null) {
+        if (mDrawerLayout != null && !mIsDrawerLocked) {
             mDrawerLayout.closeDrawer(mFragmentContainerView);
         }
         if (mCallbacks != null) {

@@ -15,54 +15,38 @@ import android.view.ViewGroup;
 
 
 public class Main2Activity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, BlogPostListFragment.Callbacks {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
-
-
-    private boolean mIsDrawer = false;
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
-    private BlogPostListFragment mBlogPostListFragment;
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
 
+    public Main2Activity() {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
+        mNavigationDrawerFragment = (NavigationDrawerFragment)
+                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        // Set up the drawer.
+        mNavigationDrawerFragment.setUp(
+                R.id.navigation_drawer,
+                drawerLayout);
+
         mTitle = getTitle();
 
-        if(getResources().getDimensionPixelSize(R.dimen.drawer_content_padding) == 0 ) {
-            mIsDrawer = true;
-
-            mNavigationDrawerFragment = (NavigationDrawerFragment)
-                    getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-
-            // Set up the drawer.
-            mNavigationDrawerFragment.setUp(
-                    R.id.navigation_drawer,
-                    (DrawerLayout) findViewById(R.id.drawer_layout));
-        } else {
-            ((BlogPostListFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.navigation_list))
-                    .setActivateOnItemClick(true);
-        }
-
-    }
-
-    @Override
-    public void onItemSelected(int position) {
-        // update the main content by replacing fragments
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                .commit();
     }
 
     @Override
@@ -98,7 +82,7 @@ public class Main2Activity extends ActionBarActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (mIsDrawer && !mNavigationDrawerFragment.isDrawerOpen()) {
+        if (!mNavigationDrawerFragment.isDrawerOpen()) {
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.

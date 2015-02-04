@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.newtpond.ribbt.widget.CheckableLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp"
+    android:padding="10dp"
     android:weightSum="1">
 
     <CheckBox
@@ -18,7 +17,9 @@
     <ImageView
         android:id="@+id/user_avatar"
         android:layout_width="@dimen/avatar_image_view_size"
-        android:layout_height="@dimen/avatar_image_view_size" />
+        android:layout_height="@dimen/avatar_image_view_size"
+        android:layout_marginLeft="@dimen/avatar_margin_left"
+        android:layout_marginStart="@dimen/avatar_margin_left" />
 
     <TextView
         android:id="@+id/user_name"
@@ -27,6 +28,7 @@
         android:layout_gravity="center_vertical"
         android:gravity="center"
         android:textSize="18sp"
-        android:layout_marginLeft="32dp" />
+        android:layout_marginLeft="@dimen/contact_margin_left"
+        android:layout_marginStart="@dimen/contact_margin_left" />
 
-</LinearLayout>
+</com.newtpond.ribbt.widget.CheckableLinearLayout>

@@ -1,6 +1,7 @@
 package com.newtpond.ribbt;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,12 +9,15 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.newtpond.ribbt.roundedImege.RoundedTransformationBuilder;
 import com.parse.ParseUser;
 import com.squareup.picasso.Picasso;
-import fr.tkeunebr.gravatar.Gravatar;
+import com.squareup.picasso.Transformation;
 
 import java.util.Collections;
 import java.util.List;
+
+import fr.tkeunebr.gravatar.Gravatar;
 
 final class GravatarAdapter extends BaseAdapter {
   private final String mStyle;
@@ -61,11 +65,22 @@ final class GravatarAdapter extends BaseAdapter {
 
     ParseUser user = getItem(position);
 
-    String gravatarUrl = Gravatar.init().with(user.getEmail()).force404().size(mAvatarImageViewPixelSize).build();
+    String gravatarUrl = Gravatar.init()
+            .with(user.getEmail())
+            .force404()
+            .size(mAvatarImageViewPixelSize)
+            .build();
+
+    Transformation transformation = new RoundedTransformationBuilder()
+            .cornerRadiusDp(mAvatarImageViewPixelSize/2)
+            .oval(false)
+            .build();
+
     Picasso.with(mContext)
             .load(gravatarUrl)
             .placeholder(R.drawable.ic_contact_picture)
             .error(R.drawable.ic_contact_picture)
+            .transform(transformation)
             .into((ImageView) convertView.findViewById(R.id.user_avatar));
 
     ((TextView) convertView.findViewById(R.id.user_name)).setText(user.getUsername());

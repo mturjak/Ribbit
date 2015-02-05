@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 public class Main2Activity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
+    private boolean mIsDrawerLocked = false;
+
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -40,11 +42,13 @@ public class Main2Activity extends ActionBarActivity
 
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
+        mIsDrawerLocked = getResources().getDimensionPixelSize(R.dimen.drawer_content_padding) > 0;
+
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 drawerLayout,
-                getResources().getDimensionPixelSize(R.dimen.drawer_content_padding) > 0
+                mIsDrawerLocked
         );
 
         mTitle = getTitle();
@@ -84,7 +88,7 @@ public class Main2Activity extends ActionBarActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mNavigationDrawerFragment.isDrawerOpen()) {
+        if (!mNavigationDrawerFragment.isDrawerOpen() || mIsDrawerLocked) {
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.

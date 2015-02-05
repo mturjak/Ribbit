@@ -130,7 +130,7 @@ public class NavigationDrawerFragment extends Fragment {
         if(locked) {
             mIsDrawerLocked = true;
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN, mFragmentContainerView);
-            drawerLayout.setScrimColor(Color.TRANSPARENT);
+            drawerLayout.setScrimColor(Color.RED);
             mDrawerLayout.openDrawer(mFragmentContainerView);
 
         } else {
@@ -251,7 +251,7 @@ public class NavigationDrawerFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // If the drawer is open, show the global app actions in the action bar. See also
         // showGlobalContextActionBar, which controls the top-left area of the action bar.
-        if (mDrawerLayout != null && isDrawerOpen()) {
+        if (mDrawerLayout != null && !mIsDrawerLocked) {
             inflater.inflate(R.menu.global, menu);
             showGlobalContextActionBar();
         }

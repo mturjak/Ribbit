@@ -123,19 +123,21 @@ public class NavigationDrawerFragment extends Fragment {
      * @param fragmentId   The android:id of this fragment in its activity's layout.
      * @param drawerLayout The DrawerLayout containing this fragment's UI.
      */
-    public void setUp(int fragmentId, DrawerLayout drawerLayout) {
+    public void setUp(int fragmentId, DrawerLayout drawerLayout, boolean locked) {
         mFragmentContainerView = getActivity().findViewById(fragmentId);
         mDrawerLayout = drawerLayout;
 
-        if(getResources().getDimensionPixelSize(R.dimen.drawer_content_padding) > 0 ) {
+        if(locked) {
             mIsDrawerLocked = true;
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN, mFragmentContainerView);
             drawerLayout.setScrimColor(Color.TRANSPARENT);
+            mDrawerLayout.openDrawer(mFragmentContainerView);
+
         } else {
             // set a custom shadow that overlays the main content when the drawer opens
             mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-            // set up the drawer's list view with items and click listener
 
+            // set up the drawer's list view with items and click listener
             ActionBar actionBar = getActionBar();
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(true);

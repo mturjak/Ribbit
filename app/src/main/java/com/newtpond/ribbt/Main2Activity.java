@@ -43,7 +43,9 @@ public class Main2Activity extends ActionBarActivity
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
-                drawerLayout);
+                drawerLayout,
+                getResources().getDimensionPixelSize(R.dimen.drawer_content_padding) > 0
+        );
 
         mTitle = getTitle();
 
